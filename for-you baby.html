@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You My Ponung, Always 🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #fdf8f3;
+    --parchment: #f5ede0;
+    --rose: #c4788a;
+    --rose-light: #e8b4be;
+    --rose-dark: #9d5a6a;
+    --ink: #2c1f1f;
+    --ink-light: #6b4f4f;
+    --gold: #c9a96e;
+    --gold-light: #e8d5b0;
+    --completed: #a8c5a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Subtle paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(196,120,138,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(201,169,110,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: 100vh; position: relative; z-index: 1; }
+  .page.active { display: block; }
+
+  /* ── HOME ── */
+  #home {
+    padding: 60px 24px 80px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .home-header {
+    text-align: center;
+    margin-bottom: 52px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .home-header .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 14px;
+  }
+
+  .home-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 10vw, 52px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .home-header h1 em {
+    font-style: italic;
+    color: var(--rose-dark);
+  }
+
+  .home-header p {
+    font-size: 14px;
+    color: var(--ink-light);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* Decorative divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 24px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+  }
+  .divider span {
+    font-size: 16px;
+    color: var(--rose-light);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+
+  /* ── LETTER CARDS ── */
+  .letter-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .letter-card {
+    background: white;
+    border: 1px solid var(--gold-light);
+    border-radius: 16px;
+    padding: 20px 22px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    animation: fadeUp 0.6s ease both;
+    text-align: left;
+    width: 100%;
+  }
+
+  .letter-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(196,120,138,0.15);
+    border-color: var(--rose-light);
+  }
+
+  .letter-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--rose), var(--gold));
+    border-radius: 16px 0 0 16px;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .letter-card:hover::before { opacity: 1; }
+
+  .letter-card .card-emoji {
+    font-size: 22px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .letter-card .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .letter-card .card-hint {
+    font-size: 12px;
+    color: var(--ink-light);
+    opacity: 0.7;
+  }
+
+  .card-arrow {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--rose-light);
+    font-size: 18px;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .letter-card:hover .card-arrow {
+    transform: translateY(-50%) translateX(4px);
+    color: var(--rose);
+  }
+
+  /* nth animation delays */
+  .letter-card:nth-child(1) { animation-delay: 0.1s; }
+  .letter-card:nth-child(2) { animation-delay: 0.2s; }
+  .letter-card:nth-child(3) { animation-delay: 0.3s; }
+  .letter-card:nth-child(4) { animation-delay: 0.4s; }
+
+  /* ── ACTIVITIES BUTTON ── */
+  .activities-banner {
+    background: linear-gradient(135deg, var(--rose-dark), var(--rose));
+    border-radius: 16px;
+    padding: 22px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: fadeUp 0.6s 0.5s ease both;
+    text-align: left;
+    border: none;
+    width: 100%;
+  }
+  .activities-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(196,120,138,0.3);
+  }
+  .activities-banner .banner-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .activities-banner .banner-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+  }
+  .activities-banner .banner-icon {
+    font-size: 28px;
+  }
+
+  /* ── LETTER PAGE ── */
+  #letter-page {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+  }
+  #letter-page.active { display: flex; }
+
+  .letter-bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #fff8f5 0%, #fdf0ea 100%);
+    z-index: 0;
+  }
+
+  .letter-container {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    width: 100%;
+    flex: 1;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink-light);
+    cursor: pointer;
+    margin-bottom: 40px;
+    padding: 8px 0;
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.2s, gap 0.2s;
+  }
+  .back-btn:hover { color: var(--rose); gap: 12px; }
+  .back-btn span { font-size: 16px; }
+
+  .envelope-reveal {
+    text-align: center;
+    padding: 40px 0;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .envelope-emoji {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .letter-category {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .letter-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 8vw, 40px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--rose-dark);
+    line-height: 1.2;
+    margin-bottom: 40px;
+  }
+
+  .letter-paper {
+    background: white;
+    border-radius: 20px;
+    padding: 36px 32px;
+    border: 1px solid var(--gold-light);
+    box-shadow: 0 8px 40px rgba(196,120,138,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .letter-paper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--rose), var(--gold), var(--rose));
+  }
+
+  .letter-salutation {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--rose);
+    margin-bottom: 20px;
+  }
+
+  .letter-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .letter-body p { margin-bottom: 18px; }
+  .letter-body p:last-child { margin-bottom: 0; }
+
+  .letter-sign-off {
+    margin-top: 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--rose-dark);
+    line-height: 1.6;
+  }
+
+  /* ── ACTIVITIES PAGE ── */
+  #activities-page {
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+  }
+  #activities-page.active { display: flex; }
+
+  .activities-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .activities-header {
+    margin-bottom: 36px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .activities-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .activities-header p {
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  .tab-bar {
+    display: flex;
+    background: white;
+    border: 1px solid var(--gold-light);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 28px;
+    gap: 4px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--ink-light);
+    transition: all 0.2s;
+  }
+  .tab-btn.active-tab {
+    background: var(--rose);
+    color: white;
+    font-weight: 400;
+  }
+
+  .activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .activity-item {
+    background: white;
+    border: 1px solid var(--gold-light);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+    animation: fadeUp 0.5s ease both;
+    cursor: pointer;
+  }
+  .activity-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(196,120,138,0.1);
+  }
+  .activity-item.done {
+    opacity: 0.65;
+    background: #f9fdf9;
+    border-color: var(--completed);
+  }
+
+  .activity-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px;
+    transition: all 0.2s;
+    background: transparent;
+  }
+  .activity-item.done .activity-check {
+    background: var(--completed);
+    border-color: var(--completed);
+    color: white;
+  }
+
+  .activity-info { flex: 1; }
+  .activity-info .act-name {
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 2px;
+    transition: text-decoration 0.2s;
+  }
+  .activity-item.done .act-name {
+    text-decoration: line-through;
+    color: var(--ink-light);
+  }
+  .activity-info .act-tag {
+    font-size: 11px;
+    color: var(--rose-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .activity-emoji {
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--ink-light);
+    font-size: 14px;
+  }
+  .empty-state .empty-icon { font-size: 40px; display: block; margin-bottom: 12px; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+
+  /* ── FLOATING HEARTS (home) ── */
+  .hearts-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .heart-particle {
+    position: absolute;
+    font-size: 14px;
+    opacity: 0;
+    animation: floatHeart linear infinite;
+    color: var(--rose-light);
+  }
+  @keyframes floatHeart {
+    0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+    10%  { opacity: 0.4; }
+    90%  { opacity: 0.1; }
+    100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 380px) {
+    .letter-paper { padding: 24px 20px; }
+    .letter-body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts background -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- ══════════════════════════════
+     HOME PAGE
+══════════════════════════════ -->
+<div id="home" class="page active">
+  <div class="home-header">
+    <p class="eyebrow">✦ A little something ✦</p>
+    <h1>For You,<br><em>Always.</em></h1>
+    <p>Whenever you need it, whatever you're feeling —<br>there's something here waiting for you.</p>
+  </div>
+
+  <p class="section-label">✦ Open When Letters</p>
+  <div class="letter-grid">
+    <button class="letter-card" onclick="openLetter('sad')">
+      <span class="card-emoji">🌧️</span>
+      <div class="card-title">Open when you're sad</div>
+      <div class="card-hint">Read this when you feel a bit blue</div>
+      <span class="card-arrow">→</span>
+    </button>
+    <button class="letter-card" onclick="openLetter('fight')">
+      <span class="card-emoji">🌊</span>
+      <div class="card-title">Open when we fight</div>
+      <div class="card-hint">For when we are not on the same page and emotions run high</div>
+      <span class="card-arrow">→</span>
+    </button>
+    <button class="letter-card" onclick="openLetter('miss')">
+      <span class="card-emoji">🌙</span>
+      <div class="card-title">Open when you miss me</div>
+      <div class="card-hint">Because distance is just space, not feeling</div>
+      <span class="card-arrow">→</span>
+    </button>
+    <button class="letter-card" onclick="openLetter('quiet')">
+      <span class="card-emoji">☁️</span>
+      <div class="card-title">Open when we don't call as much</div>
+      <div class="card-hint">For quiet stretches between us</div>
+      <span class="card-arrow">→</span>
+    </button>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p class="section-label">✦ Together Activities</p>
+  <button class="activities-banner" onclick="showPage('activities-page')">
+    <div class="banner-text">
+      <h3>Our Things To Do</h3>
+      <p>Movies, games & everything in between</p>
+    </div>
+    <span class="banner-icon">🎬</span>
+  </button>
+</div>
+
+<!-- ══════════════════════════════
+     LETTER PAGE
+══════════════════════════════ -->
+<div id="letter-page" class="page">
+  <div class="letter-bg"></div>
+  <div class="letter-container">
+    <button class="back-btn" onclick="showPage('home')">
+      <span>←</span> Back home
+    </button>
+
+    <div class="envelope-reveal" id="letterContent">
+      <!-- Filled dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     ACTIVITIES PAGE
+══════════════════════════════ -->
+<div id="activities-page" class="page">
+  <div class="activities-container">
+    <button class="back-btn" onclick="showPage('home')">
+      <span>←</span> Back home
+    </button>
+
+    <div class="activities-header">
+      <h2>Our <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--rose-dark)">Things</em></h2>
+      <p>Tap anything to mark it done — celebrate every little moment ✓</p>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active-tab" onclick="switchTab('planned', this)">Planned ✨</button>
+      <button class="tab-btn" onclick="switchTab('completed', this)">Completed 🎉</button>
+    </div>
+
+    <div class="activities-list" id="activitiesList">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ════════════════════════════════════════
+// ✏️  EDIT YOUR LETTERS HERE
+// ════════════════════════════════════════
+const letters = {
+  sad: {
+    emoji: '🌧️',
+    category: 'Open When',
+    title: "Open when you're sad",
+    salutation: 'My love,',
+    body: `
+      <p>I wish I could be there right now — sitting beside you, letting you rest your head on my shoulder, saying nothing at all. Since I can't, I hope these words find their way to you like a warm hug through the screen.</p>
+      <p>Whatever is making you sad today — it's real, it's valid, and you don't have to fix it right now. You just have to feel it. And I want you to know I'm feeling it with you, wherever I am.</p>
+      <p>You are one of the strongest people I've ever known. Not because you don't cry, but because you do — and then you keep going. That is brave. That is beautiful.</p>
+      <p>The sky is always bluer after the rain. I'll be right here when it clears. I love you baby.</p>
+    `,
+    signOff: 'Yours always,\n[N.Sj] 🌧️→🌤️'
+  },
+  fight: {
+    emoji: '🌊',
+    category: 'Open When',
+    title: 'Open when we fight',
+    salutation: 'Hey, you.',
+    body: `
+      <p>We're probably both a little hurt right now. That's okay. It means we care enough to feel things deeply. I am sorry for the words I said that hurt you and for being a bit too mean or harsh with my words.</p>
+      <p>I want you to know that no argument changes the way I feel about you. We can disagree. We can even be angry. But I am always, always on your team — even when we're fighting about which team we're on.</p>
+      <p>When you're ready, I'm ready. Not to win, but to understand you better. Because that's all I ever want — to know you more.</p>
+      <p>Let's be patient with each other. Long distance makes everything harder. But we've made it through before, and we will again.</p>
+    `,
+    signOff: 'Still yours,\n[N.Sj] 🌊'
+  },
+  miss: {
+    emoji: '🌙',
+    category: 'Open When',
+    title: 'Open when you miss me',
+    salutation: 'Oh, I miss you too.',
+    body: `
+      <p>Right now, look up. Wherever we are in the world, it's the same sky. The same moon makes its slow way over both our heads each night. I find that comforting — this quiet, invisible thread that connects us when the miles feel too many.</p>
+      <p>Missing someone means they live in you. And you, my darling, live in me every single day. In the songs that remind me of you. In the stupid jokes I save to tell you later. In every good thing I want to share. And in the lesbian couples I see on the street or the masc lesbians I see when I am walking.</p>
+      <p>This is temporary. The distance is a chapter, not the story. And the story is so good.</p>
+      <p>Until I can hold your hand again — here's a virtual one, stretched across every mile between us.</p>
+    `,
+    signOff: 'Counting down,\n[N.Sj] 🌙'
+  },
+  quiet: {
+    emoji: '☁️',
+    category: 'Open When',
+    title: "Open when we don't call as much",
+    salutation: 'Dearest,',
+    body: `
+      <p>Life gets loud and busy and full sometimes. And sometimes in all that noise, our calls get shorter, or less frequent, or just... quieter. I want you to know: that's not a sign that anything is wrong.</p>
+      <p>Love doesn't require constant contact to stay alive. It breathes on its own. Like a plant you don't have to water every day — it still grows toward the light.</p>
+      <p>You are always my light. I love you and only you.</p>
+      <p>When things calm down — for either of us — let's have a long call, I make a cup of coffee and you make your tea, or we both open a bottle of wine and catch up on everything. Until then, just know I'm thinking of you. Probably more than you'd guess.</p>
+    `,
+    signOff: 'Quietly yours,\n[N.Sj] ☁️'
+  }
+};
+
+// ════════════════════════════════════════
+// ✏️  EDIT YOUR ACTIVITIES HERE
+// ════════════════════════════════════════
+const activities = [
+  { id: 1,  name: "Watch a Studio Ghibli film together",   tag: "🎬 Movie",    done: false },
+  { id: 2,  name: "Play Gartic Phone online",              tag: "🎮 Game",     done: false },
+  { id: 3,  name: "Watch a sunset call",                   tag: "📞 Call",     done: false },
+  { id: 4,  name: "Watch 'The Handmadien'",     tag: "🎬 Movie",    done: false },
+  { id: 5,  name: "Cook the same recipe on a video call",  tag: "🍳 Activity", done: false },
+  { id: 6,  name: "Watch 'Am I Okay?' together",           tag: "🎬 Movie",    done: false },
+  { id: 7,  name: "Watch a concert together (maybe watch the Justin Bieber Coachella thing together?)",    tag: "🎵 Music",    done: false },
+  { id: 8, name: "Write each other a handwritten letter", tag: "✉️ Letter",   done: false },
+  { id: 9,  name: "Watch Sinners together",              tag: "🎬 Movie"     done: false },
+];
+
+// ════════════════════════════════════════
+// STORAGE — saves completed items
+// ════════════════════════════════════════
+function getCompletedIds() {
+  try {
+    return JSON.parse(localStorage.getItem('completedActivities') || '[]');
+  } catch { return []; }
+}
+function saveCompletedIds(ids) {
+  try { localStorage.setItem('completedActivities', JSON.stringify(ids)); } catch {}
+}
+
+// ════════════════════════════════════════
+// PAGE NAVIGATION
+// ════════════════════════════════════════
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ════════════════════════════════════════
+// OPEN WHEN LETTERS
+// ════════════════════════════════════════
+function openLetter(key) {
+  const l = letters[key];
+  if (!l) return;
+  document.getElementById('letterContent').innerHTML = `
+    <span class="envelope-emoji">${l.emoji}</span>
+    <p class="letter-category">${l.category}</p>
+    <h2 class="letter-heading">${l.title}</h2>
+    <div class="letter-paper">
+      <div class="letter-salutation">${l.salutation}</div>
+      <div class="letter-body">${l.body}</div>
+      <div class="letter-sign-off">${l.signOff.replace(/\n/g, '<br>')}</div>
+    </div>
+  `;
+  showPage('letter-page');
+}
+
+// ════════════════════════════════════════
+// ACTIVITIES
+// ════════════════════════════════════════
+let currentTab = 'planned';
+
+function switchTab(tab, btn) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+  btn.classList.add('active-tab');
+  renderActivities();
+}
+
+function toggleActivity(id) {
+  const ids = getCompletedIds();
+  const idx = ids.indexOf(id);
+  if (idx === -1) ids.push(id);
+  else ids.splice(idx, 1);
+  saveCompletedIds(ids);
+  renderActivities();
+}
+
+function renderActivities() {
+  const completedIds = getCompletedIds();
+  const list = document.getElementById('activitiesList');
+
+  const filtered = activities.filter(a => {
+    const done = completedIds.includes(a.id);
+    return currentTab === 'planned' ? !done : done;
+  });
+
+  if (filtered.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <span class="empty-icon">${currentTab === 'completed' ? '🎊' : '✨'}</span>
+        ${currentTab === 'completed'
+          ? 'Nothing completed yet — go make a memory!'
+          : 'Everything is done! You two are amazing. 🎉'}
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map((a, i) => {
+    const done = completedIds.includes(a.id);
+    return `
+      <div class="activity-item ${done ? 'done' : ''}"
+           onclick="toggleActivity(${a.id})"
+           style="animation-delay:${i * 0.06}s">
+        <div class="activity-check">${done ? '✓' : ''}</div>
+        <div class="activity-info">
+          <div class="act-name">${a.name}</div>
+          <div class="act-tag">${a.tag}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════
+// FLOATING HEARTS
+// ════════════════════════════════════════
+function spawnHeart() {
+  const el = document.createElement('div');
+  el.className = 'heart-particle';
+  el.textContent = ['🤍','✦','·','°','˚'][Math.floor(Math.random()*5)];
+  el.style.left = Math.random() * 100 + 'vw';
+  el.style.bottom = '-20px';
+  el.style.fontSize = (10 + Math.random() * 14) + 'px';
+  const dur = 8 + Math.random() * 10;
+  el.style.animationDuration = dur + 's';
+  el.style.animationDelay = Math.random() * 3 + 's';
+  document.getElementById('heartsContainer').appendChild(el);
+  setTimeout(() => el.remove(), (dur + 4) * 1000);
+}
+setInterval(spawnHeart, 1500);
+
+// Init
+renderActivities();
+</script>
+</body>
+</html>
