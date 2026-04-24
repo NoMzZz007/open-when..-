@@ -6,7 +6,7 @@
 <title>For You My Ponung, Always 🤍</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
- 
+
 <style>
   :root {
     --bg:          #eef6fb;
@@ -23,9 +23,9 @@
     --completed:   #7ec8a0;
     --completed-bg:#e8f7ef;
   }
- 
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
@@ -34,7 +34,7 @@
     overflow-x: hidden;
     position: relative;
   }
- 
+
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -43,15 +43,15 @@
       radial-gradient(ellipse at 85% 85%, rgba(91,163,201,0.08) 0%, transparent 55%);
     pointer-events: none; z-index: 0;
   }
- 
+
   /* ── PAGES ── */
   .page { display: none; min-height: 100vh; position: relative; z-index: 1; }
   .page.active { display: block; }
   #letter-page.active, #activities-page.active { display: flex; flex-direction: column; }
- 
+
   /* ── HOME ── */
   #home { padding: 60px 24px 80px; max-width: 480px; margin: 0 auto; }
- 
+
   .home-header { text-align: center; margin-bottom: 52px; animation: fadeUp 0.8s ease both; }
   .home-header .eyebrow {
     font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
@@ -64,22 +64,22 @@
   }
   .home-header h1 em { font-style: italic; color: var(--blue-dark); }
   .home-header p { font-size: 14px; color: var(--ink-light); font-weight: 300; line-height: 1.7; }
- 
+
   .divider { display: flex; align-items: center; gap: 12px; margin: 32px 0 24px; }
   .divider::before, .divider::after {
     content: ''; flex: 1; height: 1px;
     background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
   }
   .divider span { font-size: 16px; color: var(--blue-light); }
- 
+
   .section-label {
     font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
     color: var(--blue); font-weight: 400; margin-bottom: 16px; padding-left: 4px;
   }
- 
+
   /* ── LETTER CARDS ── */
   .letter-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
- 
+
   .letter-card {
     background: var(--surface); border: 1px solid var(--border-soft);
     border-radius: 16px; padding: 20px 22px; cursor: pointer;
@@ -112,7 +112,7 @@
   .letter-card:nth-child(2) { animation-delay: 0.2s; }
   .letter-card:nth-child(3) { animation-delay: 0.3s; }
   .letter-card:nth-child(4) { animation-delay: 0.4s; }
- 
+
   /* ── ACTIVITIES BANNER ── */
   .activities-banner {
     background: linear-gradient(135deg, var(--blue-dark), var(--blue));
@@ -130,7 +130,7 @@
   }
   .activities-banner .banner-text p { font-size: 12px; color: rgba(255,255,255,0.78); }
   .activities-banner .banner-icon { font-size: 28px; }
- 
+
   /* ── LETTER PAGE ── */
   #letter-page { min-height: 100vh; }
   .letter-bg {
@@ -149,7 +149,7 @@
   }
   .back-btn:hover { color: var(--blue); gap: 12px; }
   .back-btn span { font-size: 16px; }
- 
+
   .envelope-reveal { text-align: center; padding: 40px 0; animation: fadeUp 0.6s ease both; }
   .envelope-emoji { font-size: 64px; display: block; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
   .letter-category { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
@@ -171,18 +171,18 @@
   .letter-body p { margin-bottom: 18px; }
   .letter-body p:last-child { margin-bottom: 0; }
   .letter-sign-off { margin-top: 28px; font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--blue-dark); line-height: 1.6; }
- 
+
   /* ── ACTIVITIES PAGE ── */
   #activities-page { min-height: 100vh; }
   .activities-container { max-width: 480px; margin: 0 auto; padding: 40px 24px 80px; width: 100%; position: relative; z-index: 1; }
   .activities-header { margin-bottom: 24px; animation: fadeUp 0.6s ease both; }
   .activities-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--ink); margin-bottom: 6px; }
   .activities-header p { font-size: 13px; color: var(--ink-light); }
- 
+
   .progress-label { font-size: 11px; color: var(--ink-light); margin-bottom: 8px; letter-spacing: 1px; }
   .progress-bar-wrap { background: var(--blue-pale); border-radius: 99px; height: 6px; margin-bottom: 24px; overflow: hidden; }
   .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue-dark), var(--blue-light)); border-radius: 99px; transition: width 0.4s ease; }
- 
+
   /* ── ADD FORM ── */
   .add-activity-form {
     display: flex; gap: 8px; margin-bottom: 20px;
@@ -211,7 +211,7 @@
   }
   .add-btn:hover { background: var(--blue-dark); transform: scale(1.06); }
   .add-btn:active { transform: scale(0.96); }
- 
+
   /* Tabs */
   .tab-bar {
     display: flex; background: var(--surface); border: 1px solid var(--border-soft);
@@ -224,7 +224,7 @@
     background: transparent; color: var(--ink-light); transition: all 0.2s;
   }
   .tab-btn.active-tab { background: var(--blue); color: white; font-weight: 400; }
- 
+
   /* List */
   .activities-list { display: flex; flex-direction: column; gap: 10px; }
   .activity-item {
@@ -235,19 +235,19 @@
   }
   .activity-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(91,163,201,0.12); }
   .activity-item.done { opacity: 0.6; background: var(--completed-bg); border-color: var(--completed); }
- 
+
   .activity-check {
     width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--border);
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     font-size: 13px; transition: all 0.2s; background: transparent;
   }
   .activity-item.done .activity-check { background: var(--completed); border-color: var(--completed); color: white; }
- 
+
   .activity-info { flex: 1; min-width: 0; }
   .act-name { font-size: 15px; color: var(--ink); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .activity-item.done .act-name { text-decoration: line-through; color: var(--ink-light); }
   .act-tag { font-size: 11px; color: var(--blue-light); letter-spacing: 1px; text-transform: uppercase; }
- 
+
   .delete-btn {
     background: none; border: none; cursor: pointer; font-size: 13px; padding: 5px 7px;
     color: var(--border); border-radius: 8px; flex-shrink: 0;
@@ -255,10 +255,10 @@
   }
   .activity-item:hover .delete-btn { opacity: 1; }
   .delete-btn:hover { color: #d05050; background: #fef0f0; }
- 
+
   .empty-state { text-align: center; padding: 48px 24px; color: var(--ink-light); font-size: 14px; }
   .empty-state .empty-icon { font-size: 40px; display: block; margin-bottom: 12px; }
- 
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -273,7 +273,7 @@
     65%  { transform: scale(1.02) translateY(-1px); }
     100% { opacity: 1; transform: scale(1) translateY(0); }
   }
- 
+
   /* ── FLOATING HEARTS ── */
   .hearts-bg { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
   .heart-particle { position: absolute; font-size: 14px; opacity: 0; animation: floatHeart linear infinite; color: var(--blue-light); }
@@ -283,7 +283,7 @@
     90%  { opacity: 0.08; }
     100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
   }
- 
+
   @media (max-width: 400px) {
     .letter-paper { padding: 24px 18px; }
     .letter-body { font-size: 16px; }
@@ -293,9 +293,9 @@
 </style>
 </head>
 <body>
- 
+
 <div class="hearts-bg" id="heartsContainer"></div>
- 
+
 <!-- HOME -->
 <div id="home" class="page active">
   <div class="home-header">
@@ -303,7 +303,7 @@
     <h1>For You,<br><em>Always.</em></h1>
     <p>Whenever you need it, whatever you're feeling —<br>there's something here waiting for you.</p>
   </div>
- 
+
   <p class="section-label">✦ Open When Letters</p>
   <div class="letter-grid">
     <button class="letter-card" onclick="openLetter('sad')">
@@ -331,9 +331,9 @@
       <span class="card-arrow">→</span>
     </button>
   </div>
- 
+
   <div class="divider"><span>✦</span></div>
- 
+
   <p class="section-label">✦ Together Activities</p>
   <button class="activities-banner" onclick="showPage('activities-page')">
     <div class="banner-text">
@@ -343,7 +343,7 @@
     <span class="banner-icon">🎬</span>
   </button>
 </div>
- 
+
 <!-- LETTER PAGE -->
 <div id="letter-page" class="page">
   <div class="letter-bg"></div>
@@ -352,22 +352,22 @@
     <div class="envelope-reveal" id="letterContent"></div>
   </div>
 </div>
- 
+
 <!-- ACTIVITIES PAGE -->
 <div id="activities-page" class="page">
   <div class="activities-container">
     <button class="back-btn" onclick="showPage('home')"><span>←</span> Back home</button>
- 
+
     <div class="activities-header">
       <h2>Our <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--blue-dark)">Things</em></h2>
       <p>Tap to mark done · Add your own ideas below ✨</p>
     </div>
- 
+
     <p class="progress-label" id="progressLabel">0 / 9 completed</p>
     <div class="progress-bar-wrap">
       <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
     </div>
- 
+
     <!-- ✦ ADD ACTIVITY FORM -->
     <div class="add-activity-form">
       <input class="add-activity-input" id="newActivityInput"
@@ -384,17 +384,17 @@
       </select>
       <button class="add-btn" onclick="addActivity()" title="Add">+</button>
     </div>
- 
+
     <div class="tab-bar">
       <button class="tab-btn active-tab" onclick="switchTab('planned', this)">Planned ✨</button>
       <button class="tab-btn" onclick="switchTab('completed', this)">Completed 🎉</button>
     </div>
- 
+
     <div class="activities-list" id="activitiesList"></div>
   </div>
 </div>
- 
- 
+
+
 <script>
 // ════════════════ LETTERS ════════════════
 const letters = {
@@ -435,7 +435,7 @@ const letters = {
     signOff: 'Quietly yours,\n[N.Sj] ☁️'
   }
 };
- 
+
 // ════════════════ BASE ACTIVITIES ════════════════
 const BASE_ACTIVITIES = [
   { id: 1, name: "Watch a Studio Ghibli film together",                            tag: "🎬 Movie",    custom: false },
@@ -448,18 +448,18 @@ const BASE_ACTIVITIES = [
   { id: 8, name: "Write each other a handwritten letter",                          tag: "✉️ Letter",   custom: false },
   { id: 9, name: "Watch Sinners together",                                         tag: "🎬 Movie",    custom: false },
 ];
- 
+
 // ════════════════ STORAGE ════════════════
 let _mem = {};
 function lsGet(key, fb) { try { const v = localStorage.getItem(key); return v !== null ? JSON.parse(v) : fb; } catch { return _mem[key] !== undefined ? _mem[key] : fb; } }
 function lsSet(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch { _mem[key] = val; } }
- 
+
 function getCompletedIds()       { return lsGet('completedActivities', []); }
 function saveCompletedIds(ids)   { lsSet('completedActivities', ids); }
 function getCustomActivities()   { return lsGet('customActivities', []); }
 function saveCustomActivities(a) { lsSet('customActivities', a); }
 function getAllActivities()       { return [...BASE_ACTIVITIES, ...getCustomActivities()]; }
- 
+
 // ════════════════ NAVIGATION ════════════════
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -468,7 +468,7 @@ function showPage(pageId) {
   if (pageId === 'activities-page') { renderActivities(); updateProgress(); }
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') showPage('home'); });
- 
+
 // ════════════════ LETTERS ════════════════
 function openLetter(key) {
   const l = letters[key]; if (!l) return;
@@ -483,27 +483,27 @@ function openLetter(key) {
     </div>`;
   showPage('letter-page');
 }
- 
+
 // ════════════════ ADD ACTIVITY ════════════════
 function addActivity() {
   const input = document.getElementById('newActivityInput');
   const tagEl = document.getElementById('newActivityTag');
   const name  = input.value.trim();
   if (!name) { input.focus(); return; }
- 
+
   const customs = getCustomActivities();
   customs.push({ id: Date.now(), name, tag: tagEl.value, custom: true });
   saveCustomActivities(customs);
   input.value = '';
   input.focus();
- 
+
   // Switch to planned so user sees the new item
   const plannedBtn = document.querySelector('.tab-btn');
   switchTab('planned', plannedBtn);
   renderActivities();
   updateProgress();
 }
- 
+
 // ════════════════ DELETE (custom only) ════════════════
 function deleteActivity(id, e) {
   e.stopPropagation();
@@ -511,7 +511,7 @@ function deleteActivity(id, e) {
   saveCompletedIds(getCompletedIds().filter(cid => cid !== id));
   renderActivities(); updateProgress();
 }
- 
+
 // ════════════════ TOGGLE ════════════════
 function toggleActivity(id) {
   const ids = getCompletedIds();
@@ -520,7 +520,7 @@ function toggleActivity(id) {
   saveCompletedIds(ids);
   renderActivities(); updateProgress();
 }
- 
+
 // ════════════════ PROGRESS ════════════════
 function updateProgress() {
   const all   = getAllActivities();
@@ -529,7 +529,7 @@ function updateProgress() {
   document.getElementById('progressLabel').textContent = `${done} / ${total} completed`;
   document.getElementById('progressFill').style.width  = (total ? Math.round(done/total*100) : 0) + '%';
 }
- 
+
 // ════════════════ TABS ════════════════
 let currentTab = 'planned';
 function switchTab(tab, btn) {
@@ -538,25 +538,25 @@ function switchTab(tab, btn) {
   btn.classList.add('active-tab');
   renderActivities();
 }
- 
+
 // ════════════════ RENDER ════════════════
 function renderActivities() {
   const completedIds = getCompletedIds();
   const all = getAllActivities();
   const list = document.getElementById('activitiesList');
- 
+
   const filtered = all.filter(a => {
     const done = completedIds.includes(a.id);
     return currentTab === 'planned' ? !done : done;
   });
- 
+
   if (!filtered.length) {
     list.innerHTML = `<div class="empty-state">
       <span class="empty-icon">${currentTab==='completed' ? '🎊' : '✨'}</span>
       ${currentTab==='completed' ? 'Nothing completed yet — go make a memory!' : 'All done! You two are incredible. 🎉'}
     </div>`; return;
   }
- 
+
   list.innerHTML = filtered.map((a, i) => {
     const done = completedIds.includes(a.id);
     const del  = a.custom ? `<button class="delete-btn" onclick="deleteActivity(${a.id},event)" title="Remove">✕</button>` : '';
@@ -569,7 +569,7 @@ function renderActivities() {
     </div>`;
   }).join('');
 }
- 
+
 // ════════════════ FLOATING PARTICLES ════════════════
 function spawnHeart() {
   const el = document.createElement('div');
@@ -585,7 +585,7 @@ function spawnHeart() {
   setTimeout(()=>el.remove(),(dur+4)*1000);
 }
 setInterval(spawnHeart, 1500);
- 
+
 // Init
 renderActivities();
 updateProgress();
